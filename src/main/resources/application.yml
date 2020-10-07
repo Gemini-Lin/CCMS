@@ -1,0 +1,36 @@
+# 本地 Mysql 数据库配置
+spring:
+  datasource:
+    #    如果Mysql 数据库的版本是 6.0 以上，请用最新驱动版本
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf8  记得加时区的参数
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ccms?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: gemini0609
+
+# Mybatis配置
+mybatis:
+  mapper-locations: "classpath:/mybatis/mapper/*.xml,classpath:/mybatis/mapper/extend/ *.xml"
+
+# 日志打印
+logging:
+  level:
+    cn.geminiplanet.ccms.mapper: debug
+
+# 配置 swagger
+swagger:
+  # 公共信息
+  enabled: true
+  title: swagger-demo
+  description: Starter for Swagger
+  version: 0.1-SNAPSHOT
+  # 许可证及服务条款信息
+  license: Apache License, Version 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfServiceUrl: https://github.com/dyc87112/spring-boot-starter-swagger
+  contact:
+    name: Gemini
+    url:  https://geminiplanet.cn
+    email: geminilinjun@gmail.com
+  base-package: me.learning.swagger
