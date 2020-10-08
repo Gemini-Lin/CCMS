@@ -1,22 +1,16 @@
 package cn.geminiplanet.ccms.mapper;
 
-import cn.geminiplanet.ccms.common.domain.User;
-import cn.geminiplanet.ccms.common.domain.UserExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import cn.geminiplanet.ccms.entity.User;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface UserMapper {
-    long countByExample(UserExample example);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author LinJun
+ * @since 2020-10-08
+ */
+public interface UserMapper extends BaseMapper<User> {
 
-    int deleteByExample(UserExample example);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    List<User> selectByExample(UserExample example);
-
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
 }

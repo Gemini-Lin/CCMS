@@ -17,5 +17,5 @@ create table `user`(
 /*
     默认用户角色为教师、学生
 */
-insert into `user` values(1,'teacher','123456');
-insert into `user` values(2,'student','123456');
+insert into `user` values(1,'teacher','e10adc3949ba59abbe56e057f20f883e');
+insert into `user` values(2,'student','96e79218965eb72c92a549dd5a330112');

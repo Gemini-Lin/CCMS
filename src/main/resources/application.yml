@@ -13,6 +13,10 @@ spring:
 mybatis:
   mapper-locations: "classpath:/mybatis/mapper/*.xml,classpath:/mybatis/mapper/extend/ *.xml"
 
+# Mybatis Plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+
 # 日志打印
 logging:
   level:
@@ -33,4 +37,20 @@ swagger:
     name: Gemini
     url:  https://geminiplanet.cn
     email: geminilinjun@gmail.com
-  base-package: me.learning.swagger
+  base-package: cn.geminiplanet
+  base-path: /**
+
+# shrio-redis 配置
+shiro-redis:
+  enabled: true
+  redis-manager:
+    host: 127.0.0.1:6379
+
+config:
+  jwt:
+    # 加密秘钥
+    secret: iwqjhda8232bjgh432[cicada-smile]
+    # token有效时长，7天，单位秒
+    expire: 604800
+    header: Authorization
+
