@@ -16,7 +16,7 @@ import java.util.Date;
 @Slf4j
 @Data
 @Component
-@ConfigurationProperties(prefix = "ccms.jwt")
+@ConfigurationProperties(prefix = "config.jwt")
 public class JwtUtils {
 
     private String secret;

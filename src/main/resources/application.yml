@@ -1,35 +1,49 @@
-# ±¾µØ Mysql Êı¾İ¿âÅäÖÃ
+# shrio-redis é…ç½®
+shiro-redis:
+  enabled: true
+  redis-manager:
+    host: 127.0.0.1:6379
+
+config:
+  jwt:
+    # åŠ å¯†ç§˜é’¥
+    secret: iwqjhda8232bjgh432[cicada-smile]
+    # tokenæœ‰æ•ˆæ—¶é•¿ï¼Œ7å¤©ï¼Œå•ä½ç§’
+    expire: 604800
+    header: Authorization
+
+# æœ¬åœ° Mysql æ•°æ®åº“é…ç½®
 spring:
   datasource:
-    #    Èç¹ûMysql Êı¾İ¿âµÄ°æ±¾ÊÇ 6.0 ÒÔÉÏ£¬ÇëÓÃ×îĞÂÇı¶¯°æ±¾
+    #    å¦‚æœMysql æ•°æ®åº“çš„ç‰ˆæœ¬æ˜¯ 6.0 ä»¥ä¸Šï¼Œè¯·ç”¨æœ€æ–°é©±åŠ¨ç‰ˆæœ¬
     #    driver-class-name: com.mysql.cj.jdbc.Driver
-    #    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf8  ¼ÇµÃ¼ÓÊ±ÇøµÄ²ÎÊı
+    #    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf8  è®°å¾—åŠ æ—¶åŒºçš„å‚æ•°
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ccms?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     username: root
     password: gemini0609
 
-# MybatisÅäÖÃ
+# Mybatisé…ç½®
 mybatis:
   mapper-locations: "classpath:/mybatis/mapper/*.xml,classpath:/mybatis/mapper/extend/ *.xml"
 
-# Mybatis Plus ÅäÖÃ
+# Mybatis Plus é…ç½®
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
 
-# ÈÕÖ¾´òÓ¡
+# æ—¥å¿—æ‰“å°
 logging:
   level:
     cn.geminiplanet.ccms.mapper: debug
 
-# ÅäÖÃ swagger
+# é…ç½® swagger
 swagger:
-  # ¹«¹²ĞÅÏ¢
+  # å…¬å…±ä¿¡æ¯
   enabled: true
   title: swagger-demo
   description: Starter for Swagger
   version: 0.1-SNAPSHOT
-  # Ğí¿ÉÖ¤¼°·şÎñÌõ¿îĞÅÏ¢
+  # è®¸å¯è¯åŠæœåŠ¡æ¡æ¬¾ä¿¡æ¯
   license: Apache License, Version 2.0
   licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfServiceUrl: https://github.com/dyc87112/spring-boot-starter-swagger
@@ -40,17 +54,6 @@ swagger:
   base-package: cn.geminiplanet
   base-path: /**
 
-# shrio-redis ÅäÖÃ
-shiro-redis:
-  enabled: true
-  redis-manager:
-    host: 127.0.0.1:6379
 
-config:
-  jwt:
-    # ¼ÓÃÜÃØÔ¿
-    secret: iwqjhda8232bjgh432[cicada-smile]
-    # tokenÓĞĞ§Ê±³¤£¬7Ìì£¬µ¥Î»Ãë
-    expire: 604800
-    header: Authorization
+
 

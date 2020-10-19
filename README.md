@@ -33,14 +33,18 @@
 2. 技术栈更新                             2020-10-08 林俊
     * 将 Mybatis 更改为 Mybatis Plus 代码自动生成更加方便，后续待完善分页处理和多表处理
     * 使用开源项目 spring-boot-starter-swagger 生成了正式的API文档，持续更新中
-    * 引入了Lombok 插件，大量简化代码编写
+    * 引入了 Lombok 插件，大量简化代码编写
     * 导入 shiro-redis-spring-boot-starter 开源项目Jar包 
         1. 加入 Shiro 安全框架，方便后续处理身份认证、授权、加密以及会话管理
         2. 加入 Redis 缓存数据
     * 加入 JSON Web Token 用于认证过程
- 3. 功能点实现                              2020-10-08 林俊
-    * 编写AccountController类，完成用户登录和退出模块
-    * 编写UserController类，实现图片验证码获取
-    * 编写Result类，用于异步统一返回的结果封装  
-    * 编写GlobalExceptionHandler类，用于项目异常处理
+3. 功能点实现1.0                              2020-10-08 林俊
+    * 编写 AccountController 类，完成用户登录和退出模块
+    * 编写 UserController 类，实现图片验证码获取
+    * 编写 Result 类，用于异步统一返回的结果封装  
+    * 编写 GlobalExceptionHandler 类，用于项目异常处理
     * 将数据传输中的 password 字段用 md5 加密(Ps：目前遇到点问题未解决)
+4. 功能点实现2.0                                 2020-10-19 林俊
+    * 根据数据库设计，新增了六个是实体类
+    * 解决了 password 加密传输问题
+    * 编写 CorsConfig 解决跨域问题
