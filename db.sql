@@ -67,17 +67,6 @@ CREATE TABLE `subject`  (
   CONSTRAINT `fk_tId` FOREIGN KEY (`tId`) REFERENCES `teacher` (`tId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Triggers structure for table topic_select
--- ----------------------------
-DROP TRIGGER IF EXISTS `Tri_Insert_topic_select`;
-delimiter ;;
-CREATE TRIGGER `Tri_Insert_topic_select` BEFORE INSERT ON `topic_select` FOR EACH ROW BEGIN
-   UPDATE `subject` SET remain_group_num = remain_group_num-1 WHERE subId=NEW.subId AND remain_group_num>=0;
-END
-;;
-delimiter ;
-
 
 -- ----------------------------
 -- Table structure for group
@@ -106,7 +95,6 @@ CREATE TABLE `group`  (
 -- Triggers structure for table group
 -- ----------------------------
 DROP TRIGGER IF EXISTS `Tri_add_member`;
-delimiter ;;
 CREATE TRIGGER `Tri_add_member` BEFORE UPDATE ON `group` FOR EACH ROW BEGIN
    IF(OLD.sId_4 = null) THEN
 	   UPDATE `group` SET OLD.sId_4=NEW.sId_4 WHERE OLD.sId_1=NEW.sId_1;
@@ -116,8 +104,6 @@ CREATE TRIGGER `Tri_add_member` BEFORE UPDATE ON `group` FOR EACH ROW BEGIN
 	   UPDATE `group` SET OLD.sId_6=NEW.sId_6 WHERE OLD.sId_1=NEW.sId_1;
 	 END IF;
 END
-;;
-delimiter ;
 
 
 -- ----------------------------
@@ -136,6 +122,15 @@ CREATE TABLE `topic_select`  (
   CONSTRAINT `fk_subId` FOREIGN KEY (`subId`) REFERENCES `subject` (`subId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gId` FOREIGN KEY (`gId`) REFERENCES `group` (`gId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- Triggers structure for table topic_select
+-- ----------------------------
+DROP TRIGGER IF EXISTS `Tri_Insert_topic_select`;
+CREATE TRIGGER `Tri_Insert_topic_select` BEFORE INSERT ON `topic_select` FOR EACH ROW BEGIN
+   UPDATE `subject` SET remain_group_num = remain_group_num-1 WHERE subId=NEW.subId AND remain_group_num>=0;
+END
 
 
 -- ----------------------------
