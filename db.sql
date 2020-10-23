@@ -28,8 +28,8 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
   `tId` int NOT NULL,
   `account` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `phone` char(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `job` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL CHECK(job IN('教授','副教授','讲师')),
   `gender` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `teacher`  (
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student`  (
   `sId` char(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `gender` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `contact` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`sId`) USING BTREE
@@ -92,25 +92,10 @@ CREATE TABLE `group`  (
 
 
 -- ----------------------------
--- Triggers structure for table group
+-- Table structure for topicselect
 -- ----------------------------
-DROP TRIGGER IF EXISTS `Tri_add_member`;
-CREATE TRIGGER `Tri_add_member` BEFORE UPDATE ON `group` FOR EACH ROW BEGIN
-   IF(OLD.sId_4 = null) THEN
-	   UPDATE `group` SET OLD.sId_4=NEW.sId_4 WHERE OLD.sId_1=NEW.sId_1;
-	 ELSEIF(OLD.sId_5 = null) THEN
-	   UPDATE `group` SET OLD.sId_5=NEW.sId_5 WHERE OLD.sId_1=NEW.sId_1;
-	 ELSEIF(OLD.sId_6 = null) THEN
-	   UPDATE `group` SET OLD.sId_6=NEW.sId_6 WHERE OLD.sId_1=NEW.sId_1;
-	 END IF;
-END
-
-
--- ----------------------------
--- Table structure for topic_select
--- ----------------------------
-DROP TABLE IF EXISTS `topic_select`;
-CREATE TABLE `topic_select`  (
+DROP TABLE IF EXISTS `topicselect`;
+CREATE TABLE `topicselect`  (
   `tsId` int NOT NULL AUTO_INCREMENT,
   `subId` int NOT NULL,
   `gId` int NOT NULL,
@@ -125,15 +110,6 @@ CREATE TABLE `topic_select`  (
 
 
 -- ----------------------------
--- Triggers structure for table topic_select
--- ----------------------------
-DROP TRIGGER IF EXISTS `Tri_Insert_topic_select`;
-CREATE TRIGGER `Tri_Insert_topic_select` BEFORE INSERT ON `topic_select` FOR EACH ROW BEGIN
-   UPDATE `subject` SET remain_group_num = remain_group_num-1 WHERE subId=NEW.subId AND remain_group_num>=0;
-END
-
-
--- ----------------------------
 -- Table structure for score
 -- ----------------------------
 DROP TABLE IF EXISTS `score`;
@@ -143,7 +119,7 @@ CREATE TABLE `score`  (
   `score` int NOT NULL,
   PRIMARY KEY (`scoreId`, `tsId`) USING BTREE,
   INDEX `fk_tsId`(`tsId`) USING BTREE,
-  CONSTRAINT `fk_tsId` FOREIGN KEY (`tsId`) REFERENCES `topic_select` (`tsId`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_tsId` FOREIGN KEY (`tsId`) REFERENCES `topicselect` (`tsId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 
@@ -156,3 +132,31 @@ CREATE TABLE `administrator`  (
   `password` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`account`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Triggers structure for table topic_select
+-- ----------------------------
+DROP TRIGGER IF EXISTS `Tri_Insert_topic_select`;
+CREATE TRIGGER `Tri_Insert_topic_select` BEFORE INSERT ON `topicselect` FOR EACH ROW BEGIN
+   UPDATE `subject` SET remain_group_num = remain_group_num-1 WHERE subId=NEW.subId AND remain_group_num>=0;
+END
+
+-- ----------------------------
+-- Triggers structure for table group
+-- ----------------------------
+DROP TRIGGER IF EXISTS `Tri_add_member`;
+CREATE TRIGGER `Tri_add_member` BEFORE UPDATE ON `group` FOR EACH ROW BEGIN
+   IF(OLD.sId_4 = null) THEN
+	   UPDATE `group` SET OLD.sId_4=NEW.sId_4 WHERE OLD.sId_1=NEW.sId_1;
+	 ELSEIF(OLD.sId_5 = null) THEN
+	   UPDATE `group` SET OLD.sId_5=NEW.sId_5 WHERE OLD.sId_1=NEW.sId_1;
+	 ELSEIF(OLD.sId_6 = null) THEN
+	   UPDATE `group` SET OLD.sId_6=NEW.sId_6 WHERE OLD.sId_1=NEW.sId_1;
+	 END IF;
+END
+
+-- ----------------------------
+-- Data For Test
+-- ----------------------------
+insert into `student` values('2018091601004','d13c68fbd22a68bede58f109db3a8369','男','13067459646');
+insert into `teacher` values('1','liuqiao','d13c68fbd22a68bede58f109db3a8369','13067459646','1009712456@qq.com','教授','男','青千');

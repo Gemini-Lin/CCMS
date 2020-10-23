@@ -1,6 +1,6 @@
 package cn.geminiplanet.ccms.config;
 
-import cn.geminiplanet.ccms.shiro.AccountRealm;
+import cn.geminiplanet.ccms.shiro.StudentAccountRealm;
 import cn.geminiplanet.ccms.shiro.JwtFilter;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -36,11 +36,11 @@ public class ShiroConfig {
     }
 
     @Bean
-    public DefaultWebSecurityManager securityManager(AccountRealm accountRealm,
+    public DefaultWebSecurityManager securityManager(StudentAccountRealm studentAccountRealm,
                                                      SessionManager sessionManager,
                                                      RedisCacheManager redisCacheManager) {
 
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(accountRealm);
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(studentAccountRealm);
 
         //inject sessionManager
         securityManager.setSessionManager(sessionManager);

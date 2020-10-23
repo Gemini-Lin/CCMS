@@ -13,18 +13,16 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("topicselect")
-@ApiModel(value="TopicSelect对象", description="")
-public class TopicSelect implements Serializable {
+@TableName("administrator")
+@ApiModel(value="Administrator对象", description="")
+public class Administrator implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "tsId", type = IdType.AUTO)
-    private Integer tsId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
-    @TableId(value = "subId")
-    private Integer subId;
+    private String account;
 
-    @TableId(value = "gId")
-    private Integer gId;
+    private String password;
 }

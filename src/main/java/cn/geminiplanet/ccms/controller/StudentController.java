@@ -1,9 +1,10 @@
 package cn.geminiplanet.ccms.controller;
 
-import cn.geminiplanet.ccms.common.dto.LoginDto;
+
+import cn.geminiplanet.ccms.common.dto.StudentLoginDto;
 import cn.geminiplanet.ccms.common.lang.Result;
-import cn.geminiplanet.ccms.entity.User;
-import cn.geminiplanet.ccms.service.UserService;
+import cn.geminiplanet.ccms.entity.Student;
+import cn.geminiplanet.ccms.service.StudentService;
 import cn.geminiplanet.ccms.utils.JwtUtils;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -13,41 +14,47 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
+ * @author LinJun
+ * @since 2020-10-23
+ */
 @RestController
-public class AccountController {
+@RequestMapping("/student")
+public class StudentController {
 
     @Autowired
-    UserService userService;
+    StudentService studentService;
 
     @Autowired
     JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public Result login(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response) {
+    public Result login(@Validated @RequestBody StudentLoginDto loginDto, HttpServletResponse response) {
 
-        User user = userService.getOne(new QueryWrapper<User>().eq("username", loginDto.getUsername()));
-        Assert.notNull(user, "用户不存在");
+        Student student = studentService.getOne(new QueryWrapper<Student>().eq("sId", loginDto.getSId()));
+        Assert.notNull(student, "用户不存在");
 
-        if(!user.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))){
+        if(!student.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))){
             return Result.fail("密码不正确");
         }
 
-        String jwt = jwtUtils.generateToken(user.getId());
+        String jwt = jwtUtils.generateToken(student.getSId());
 
         response.setHeader("Authorization", jwt);
         response.setHeader("Access-control-Expose-Headers", "Authorization");
 
         return Result.success(MapUtil.builder()
-                .put("id", user.getId())
-                .put("username", user.getUsername())
-                .put("password", user.getPassword())
+                .put("gender",student.getGender())
+                .put("contact",student.getContact())
+                .put("sId", student.getSId())
                 .map()
         );
     }

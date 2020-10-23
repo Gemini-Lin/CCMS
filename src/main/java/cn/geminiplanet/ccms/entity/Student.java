@@ -24,7 +24,7 @@ public class Student implements Serializable {
 
     @TableId(value = "sId")
     @Length(min = 13, max = 13,message = "请使用学号登录")
-    private Integer sId;
+    private String sId;
 
     @Pattern(regexp = "^[a-zA-Z0-9_]{3,15}$",message = "密码要求：4-16位英文大小写、数字、下划线组成")
     private String password;

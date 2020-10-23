@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +26,9 @@ public class JwtUtils {
 
     /**
      * 生成jwt token
+     * @param userId
      */
-    public String generateToken(long userId) {
+    public String generateToken(@Length(min = 13, max = 13, message = "请使用学号登录") String userId) {
         Date nowDate = new Date();
         //过期时间
         Date expireDate = new Date(nowDate.getTime() + expire * 1000);

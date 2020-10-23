@@ -46,8 +46,6 @@ public class Teacher implements Serializable {
     private Character gender;
 
     @NotBlank(message = "个人介绍不能为空：包括研究方向、科研情况、教学情况、获奖情况等")
-    private String description;
-
-
+    private String introduction;
 
 }

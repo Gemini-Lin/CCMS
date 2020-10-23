@@ -6,11 +6,11 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Data
-public class LoginDto implements Serializable {
+public class StudentLoginDto implements Serializable {
 
     // validation JSR303校验
-    @NotBlank(message = "昵称不能为空")
-    private String username;
+    @NotBlank(message = "学号不能为空")
+    private String sId;
 
     @NotBlank(message = "密码不能为空")
     private String password;

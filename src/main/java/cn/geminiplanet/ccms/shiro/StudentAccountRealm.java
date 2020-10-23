@@ -1,6 +1,8 @@
 package cn.geminiplanet.ccms.shiro;
 
+import cn.geminiplanet.ccms.entity.Student;
 import cn.geminiplanet.ccms.entity.User;
+import cn.geminiplanet.ccms.service.StudentService;
 import cn.geminiplanet.ccms.service.UserService;
 import cn.geminiplanet.ccms.utils.JwtUtils;
 import cn.hutool.core.bean.BeanUtil;
@@ -13,13 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AccountRealm extends AuthorizingRealm {
+public class StudentAccountRealm extends AuthorizingRealm {
 
     @Autowired
     JwtUtils jwtUtils;
 
     @Autowired
-    UserService userService;
+    StudentService studentService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -38,13 +40,13 @@ public class AccountRealm extends AuthorizingRealm {
 
         String userId = jwtUtils.getClaimByToken((String) jwtToken.getPrincipal()).getSubject();
 
-        User user = userService.getById(Long.valueOf(userId));
-        if (user == null) {
+        Student student = studentService.getById(Long.valueOf(userId));
+        if (student == null) {
             throw new UnknownAccountException("账户不存在");
         }
 
         AccountProfile profile = new AccountProfile();
-        BeanUtil.copyProperties(user, profile);
+        BeanUtil.copyProperties(student, profile);
 
         return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());
     }
