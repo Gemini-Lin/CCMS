@@ -131,6 +131,13 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.5.Final</version >
         </dependency>
+
+        <!--文件上传工具-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
     </dependencies>
 
 

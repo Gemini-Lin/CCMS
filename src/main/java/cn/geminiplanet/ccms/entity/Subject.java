@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -23,6 +24,7 @@ public class Subject implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "subId", type = IdType.AUTO)
+    @NotNull(message = "请输入正确的课题编号")
     private Integer subId;
 
     @NotBlank(message = "课题名称不能为空")

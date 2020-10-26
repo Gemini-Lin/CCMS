@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import sun.net.www.content.image.gif;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -21,6 +22,7 @@ public class Group implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @TableId(value = "gId", type = IdType.AUTO)
+    @NotNull(message = "请输入正确的组号")
     private Integer gId;
 
     @NotBlank(message = "小组至少要有 3 个成员")

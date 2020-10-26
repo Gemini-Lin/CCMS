@@ -12,14 +12,19 @@ config:
     expire: 604800
     header: Authorization
 
+upload:
+  dir: D:/files
+
 # 本地 Mysql 数据库配置
 spring:
+  resources:
+    static-locations: file:${upload.dir}
   datasource:
     #    如果Mysql 数据库的版本是 6.0 以上，请用最新驱动版本
     #    driver-class-name: com.mysql.cj.jdbc.Driver
     #    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf8  记得加时区的参数
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ccms?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowMultiQueries=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/ccms?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
     username: root
     password: gemini0609
 
@@ -55,6 +60,8 @@ swagger:
     email: geminilinjun@gmail.com
   base-package: cn.geminiplanet
   base-path: /**
+
+
 
 
 

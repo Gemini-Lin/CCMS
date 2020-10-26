@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -31,4 +33,7 @@ public class Topicselect implements Serializable {
 
     @NotBlank(message = "完成度，如80就表示完成了80%")
     private Integer completed;
+
+    @NotBlank(message = "请及时上传实验报告")
+    private String filePath;
 }
