@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("administrator")
+@TableName("`administrator`")
 @ApiModel(value="Administrator对象", description="")
 public class Administrator implements Serializable {
 

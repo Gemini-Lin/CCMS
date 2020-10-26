@@ -8,12 +8,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("topicselect")
+@TableName("`topic_select`")
 @ApiModel(value="TopicSelect对象", description="")
 public class Topicselect implements Serializable {
 
@@ -27,4 +28,7 @@ public class Topicselect implements Serializable {
 
     @TableId(value = "gId")
     private Integer gId;
+
+    @NotBlank(message = "完成度，如80就表示完成了80%")
+    private Integer completed;
 }

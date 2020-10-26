@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("student")
+@TableName("`student`")
 @ApiModel(value="Student对象", description="")
 public class Student implements Serializable {
 

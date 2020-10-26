@@ -17,12 +17,12 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("subject")
+@TableName("`subject`")
 @ApiModel(value="Subject对象", description="")
 public class Subject implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "subID", type = IdType.AUTO)
+    @TableId(value = "subId", type = IdType.AUTO)
     private Integer subId;
 
     @NotBlank(message = "课题名称不能为空")
@@ -31,6 +31,9 @@ public class Subject implements Serializable {
     @NotBlank(message = "课题描述不能为空")
     private String description;
 
-    @TableId(value = "tID")
+    @TableId(value = "tId")
     private Integer tId;
+
+    @NotBlank(message = "剩余可选组数，初始值设为此课题最大限制组数")
+    private Integer remain_group_num;
 }

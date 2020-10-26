@@ -1,6 +1,5 @@
 package cn.geminiplanet.ccms.entity;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,18 +14,24 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("`score`")
-@ApiModel(value="Score对象", description="")
-public class Score implements Serializable {
+@TableName("`message`")
+@ApiModel(value="Message对象", description="")
+public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "scoreId", type = IdType.AUTO)
-    private Integer scoreId;
+    @TableId(value = "mId", type = IdType.AUTO)
+    private Integer mId;
 
-    @TableId(value = "tsId")
-    private Integer tsId;
+    @TableId(value = "tId")
+    private Integer tId;
 
-    @NotBlank(message = "最终得分不能为空")
-    private Integer score;
+    @TableId(value = "sId")
+    private String sId;
+
+    @NotBlank(message = "消息内容不能为空")
+    private String content;
+
+    @NotBlank(message = "消息发生时间不能为空")
+    private String time;
 }

@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("teacher")
+@TableName("`teacher`")
 @ApiModel(value="Teacher对象", description="")
 public class Teacher implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -25,17 +25,18 @@ public class Teacher implements Serializable {
     @TableId(value = "tId", type = IdType.AUTO)
     private Integer tId;
 
-
     @Pattern(regexp = "^[a-zA-Z0-9_]{3,15}$",message = "账号要求：4-16位英文大小写、数字、下划线组成")
     private String account;
 
     @Pattern(regexp = "^[a-zA-Z0-9_]{3,15}$",message = "密码要求：4-16位英文大小写、数字、下划线组成")
     private String password;
 
-    @NotBlank(message = "电话不能为空")
+    @NotBlank(message = "手机号不能为空")
+    @Pattern(regexp = "^[1][3,4,5,7,8][0-9]{9}$",message = "手机号必须有效")
     private String phone;
 
     @NotBlank(message = "邮箱不能为空")
+    @Pattern(regexp = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$", message = "邮箱地址必须有效")
     private String email;
 
     @NotBlank(message = "职位不能为空")

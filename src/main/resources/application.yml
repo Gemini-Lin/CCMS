@@ -19,7 +19,7 @@ spring:
     #    driver-class-name: com.mysql.cj.jdbc.Driver
     #    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf8  记得加时区的参数
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ccms?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://localhost:3306/ccms?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowMultiQueries=true&characterEncoding=utf-8
     username: root
     password: gemini0609
 
@@ -30,6 +30,8 @@ mybatis:
 # Mybatis Plus 配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: false
 
 # 日志打印
 logging:

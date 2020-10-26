@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("group")
+@TableName("`group`")
 @ApiModel(value="Group对象", description="")
 public class Group implements Serializable {
 
@@ -24,17 +24,17 @@ public class Group implements Serializable {
     private Integer gId;
 
     @NotBlank(message = "小组至少要有 3 个成员")
-    private Integer sId_1;
+    private String sId_1;
 
     @NotBlank(message = "小组至少要有 3 个成员")
-    private Integer sId_2;
+    private String sId_2;
 
     @NotBlank(message = "小组至少要有 3 个成员")
-    private Integer sId_3;
+    private String sId_3;
 
-    private Integer sId_4;
+    private String sId_4;
 
-    private Integer sId_5;
+    private String sId_5;
 
-    private Integer sId_6;
+    private String sId_6;
 }

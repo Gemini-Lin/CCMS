@@ -133,6 +133,26 @@ CREATE TABLE `administrator`  (
   PRIMARY KEY (`account`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
+
+-- ----------------------------
+-- Table structure for message
+-- ----------------------------
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message`  (
+  `mId` int NOT NULL AUTO_INCREMENT,
+  `sId` char(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `time` timestamp(0) NOT NULL,
+  `tId` int NOT NULL,
+  PRIMARY KEY (`mId`, `sId`, `tId`) USING BTREE,
+  INDEX `fk_sid`(`sId`) USING BTREE,
+  INDEX `fk__tid`(`tId`) USING BTREE,
+  CONSTRAINT `fk__tid` FOREIGN KEY (`tId`) REFERENCES `teacher` (`tId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sid` FOREIGN KEY (`sId`) REFERENCES `student` (`sId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+
+
 -- ----------------------------
 -- Triggers structure for table topic_select
 -- ----------------------------
@@ -160,3 +180,26 @@ END
 -- ----------------------------
 insert into `student` values('2018091601004','d13c68fbd22a68bede58f109db3a8369','男','13067459646');
 insert into `teacher` values('1','liuqiao','d13c68fbd22a68bede58f109db3a8369','13067459646','1009712456@qq.com','教授','男','青千');
+
+INSERT INTO `student` VALUES ('2018091605024', 'fs894_32', '男', '13808533670');
+INSERT INTO `student` VALUES ('2018091605025', 'e53235_9', '女', '13505918309');
+INSERT INTO `student` VALUES ('2018091605026', 'w12345_6', '女', '1186161809@qq.com\r\n');
+
+INSERT INTO `teacher` VALUES (2018001, '傅翀', 'daf41_214', '13505918309', '1186161809@qq.com', '副教授', '男', '。。。');
+INSERT INTO `teacher` VALUES (2018002, '郝宗波', 'csadf312_d', '13505918308', '16161809@qq.com', '副教授', '男', '。。。。');
+
+INSERT INTO `subject` VALUES (1, '综合课程管理系统', '。。。。。。', 2018001, 10);
+INSERT INTO `subject` VALUES (2, '数据库设计', '。。。', 2018001, 5);
+
+INSERT INTO `group` VALUES (1, '2018091605024', '2018091605025', '2018091605026', NULL, NULL, NULL);
+
+INSERT INTO `topic_select` VALUES (1, 1, 1, 0);
+
+INSERT INTO `score` VALUES (1, 1, 100);
+
+INSERT INTO `message` VALUES (4, '2018091605024', '注意进度', '2020-10-25 21:23:38', 2018001);
+INSERT INTO `message` VALUES (5, '2018091605025', '注意进度', '2020-10-25 21:23:48', 2018001);
+INSERT INTO `message` VALUES (6, '2018091605026', '注意进度', '2020-10-25 21:23:56', 2018001);
+INSERT INTO `message` VALUES (7, '2018091605024', '催进度！', '2020-10-25 21:55:11', 2018001);
+INSERT INTO `message` VALUES (8, '2018091605024', '催进度！', '2020-10-25 21:55:11', 2018001);
+INSERT INTO `message` VALUES (9, '2018091605024', '催进度！', '2020-10-25 21:55:11', 2018001);
