@@ -60,7 +60,7 @@ public class teacherTests {
 
             topicselectCollection.forEach((o)-> {
                 String topic = subjectService.getOne(new QueryWrapper<Subject>().eq("subId",o.getSubId())).getTopic();
-                results.add(new GroupModel(o.getSubId(), topic, o.getGId(), o.getCompleted()));
+                results.add(new GroupModel(o.getSubId(), topic, o.getGId(), o.getCompleted(), o.getFilePath()));
             });
         }
         System.out.println(results);

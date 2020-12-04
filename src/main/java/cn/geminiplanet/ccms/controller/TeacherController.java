@@ -62,6 +62,7 @@ public class TeacherController {
         Assert.notNull(teacher, "用户不存在");
 
         if(!teacher.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))){
+            System.out.println("md5加密后的密码为："+SecureUtil.md5(loginDto.getPassword()));
             return Result.fail("密码不正确");
         }
 
@@ -83,7 +84,7 @@ public class TeacherController {
         );
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/logout")
     @ApiOperation("退出登录")
     public Result logout() {
@@ -98,7 +99,7 @@ public class TeacherController {
      * * * 指导课题及小组 * * *
      *
      */
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/all_direct_subjects")
     @ApiOperation("查看指导的所有课题列表")
     public List<Subject> getAllDirectSubjects(@RequestParam("tId") Integer tId){
@@ -106,7 +107,7 @@ public class TeacherController {
         return subjectList;
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/subject")
     @ApiOperation("查看指定课题详情")
     public Subject getSubjectById(@RequestParam("subId") Integer subId){
@@ -115,7 +116,7 @@ public class TeacherController {
         return subject;
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/all_directd_group")
     @ApiOperation("查看指导的所有小组列表(课题ID+课题名称+小组id+完成度)")
     public List<GroupModel> getAllDirectedGroups(@RequestParam("tId") Integer tId){
@@ -133,14 +134,14 @@ public class TeacherController {
 
             topicselectCollection.forEach((o)-> {
                 String topic = subjectService.getOne(new QueryWrapper<Subject>().eq("subId",o.getSubId())).getTopic();
-                results.add(new GroupModel(o.getSubId(), topic, o.getGId(), o.getCompleted()));
+                results.add(new GroupModel(o.getSubId(), topic, o.getGId(), o.getCompleted(), o.getFilePath()));
             });
         }
         return results;
     }
 
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/subject/all_chosen_group")
     @ApiOperation("查看选择某一课题的小组列表(小组Id+小组成员+完成度)")
     public Collection<Group> getChosenGroups(@RequestParam("subId") Integer subId){
@@ -158,7 +159,7 @@ public class TeacherController {
         return groupList;
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/group_detail")
     @ApiOperation("查看某一小组详情")
     public Group getGroupById(@RequestParam("gId") Integer gId){
@@ -166,7 +167,7 @@ public class TeacherController {
         return group;
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @PostMapping("/send_message")
     @ApiOperation("给指定小组的所有学生发送进度提醒消息")
     public void sendMessage(@RequestParam("tId") Integer tId, @RequestParam("gId") Integer gId, @RequestParam("content") String content){
@@ -182,13 +183,13 @@ public class TeacherController {
 
         Message message2 = new Message();
         message2.setTId(tId);
-        message2.setSId(group.getSId_1());
+        message2.setSId(group.getSId_2());
         message2.setContent(content);
         message2.setTime(time);
 
         Message message3 = new Message();
         message3.setTId(tId);
-        message3.setSId(group.getSId_1());
+        message3.setSId(group.getSId_3());
         message3.setContent(content);
         message3.setTime(time);
 
@@ -226,7 +227,7 @@ public class TeacherController {
      * * * 成绩管理 * * *
      *
      */
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @PutMapping("/commit_score")
     @ApiOperation("给指定小组评分")
     public void commitScore(@RequestParam("gId") Integer gId, @RequestParam("grade") Integer grade){
@@ -250,7 +251,7 @@ public class TeacherController {
      * * * 导出成绩 * * *
      *
      */
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/scoreList")
     @ApiOperation("查看指导的所有小组的成绩(课题ID+课题名称+小组id+成绩)")
     public List<ScoreModel> getScoreList(@RequestParam("tId") Integer tId){
@@ -275,7 +276,7 @@ public class TeacherController {
         return results;
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/group_score")
     @ApiOperation("获取某一小组成绩")
     public Integer getScoreByGId(@RequestParam("gId") Integer gId){

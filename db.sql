@@ -100,6 +100,7 @@ CREATE TABLE `topicselect`  (
   `subId` int NOT NULL,
   `gId` int NOT NULL,
   `completed` int NOT NULL,
+  `filePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`tsId`, `subId`, `gId`) USING BTREE,
   INDEX `fk_subId`(`subId`) USING BTREE,
   INDEX `fk_gId`(`gId`) USING BTREE,
@@ -129,7 +130,7 @@ CREATE TABLE `score`  (
 DROP TABLE IF EXISTS `administrator`;
 CREATE TABLE `administrator`  (
   `account` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`account`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
@@ -181,19 +182,24 @@ END
 insert into `student` values('2018091601004','d13c68fbd22a68bede58f109db3a8369','男','13067459646');
 insert into `teacher` values('1','liuqiao','d13c68fbd22a68bede58f109db3a8369','13067459646','1009712456@qq.com','教授','男','青千');
 
-INSERT INTO `student` VALUES ('2018091605024', 'fs894_32', '男', '13808533670');
-INSERT INTO `student` VALUES ('2018091605025', 'e53235_9', '女', '13505918309');
-INSERT INTO `student` VALUES ('2018091605026', 'w12345_6', '女', '1186161809@qq.com\r\n');
+INSERT INTO `student` VALUES ('2018091605024', 'beef9583e290ca98d280d8c330afa237', '男', '13808533670');
+//密码为fs894_32
+INSERT INTO `student` VALUES ('2018091605025', '31aa19ebfffbdb5b85bfe4e8577e772a', '女', '13505918309');
+//密码为e53235_9
+INSERT INTO `student` VALUES ('2018091605026', '888332b96483e352eaa81b0863fdfff8', '女', '1186161809@qq.com\r\n');
+//密码为w12345_6
 
-INSERT INTO `teacher` VALUES (2018001, '傅翀', 'daf41_214', '13505918309', '1186161809@qq.com', '副教授', '男', '。。。');
-INSERT INTO `teacher` VALUES (2018002, '郝宗波', 'csadf312_d', '13505918308', '16161809@qq.com', '副教授', '男', '。。。。');
+INSERT INTO `teacher` VALUES (2018001, '傅翀', 'ed922d514266df76d7e26948a2fed12a', '13505918309', '1186161809@qq.com', '副教授', '男', '。。。');
+//密码为daf41_214
+INSERT INTO `teacher` VALUES (2018002, '郝宗波', '3001fc8b52ba59091cc9ee5dd83a2510', '13505918308', '16161809@qq.com', '副教授', '男', '。。。。');
+//密码为csadf312_d
 
 INSERT INTO `subject` VALUES (1, '综合课程管理系统', '。。。。。。', 2018001, 10);
 INSERT INTO `subject` VALUES (2, '数据库设计', '。。。', 2018001, 5);
 
 INSERT INTO `group` VALUES (1, '2018091605024', '2018091605025', '2018091605026', NULL, NULL, NULL);
 
-INSERT INTO `topic_select` VALUES (1, 1, 1, 0);
+INSERT INTO `topic_select` VALUES (1, 1, 1, 0, NULL);
 
 INSERT INTO `score` VALUES (1, 1, 100);
 

@@ -18,10 +18,14 @@ public class GroupModel {
 
     private Integer completed;
 
-    public GroupModel(Integer subId, String topic, Integer gId, Integer completed) {
+    private String filePath;
+
+
+    public GroupModel(Integer subId, String topic, Integer gId, Integer completed, String filePath) {
         this.subId = subId;
         this.topic = topic;
         this.gId = gId;
         this.completed = completed;
+        this.filePath = filePath;
     }
 }
