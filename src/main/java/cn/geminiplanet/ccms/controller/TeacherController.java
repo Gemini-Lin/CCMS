@@ -10,6 +10,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.IOUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,7 +33,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/teacher")
-@Api(tags = "教师端功能", description = "提供教师相关的 Rest API")
+@Api(tags = "API for teacher", description = "")
 public class TeacherController {
     @Autowired
     TeacherService teacherService;
@@ -276,6 +278,7 @@ public class TeacherController {
         return results;
     }
 
+
 //    @RequiresAuthentication
     @GetMapping("/group_score")
     @ApiOperation("获取某一小组成绩")
@@ -286,4 +289,60 @@ public class TeacherController {
     }
 
 
+    /**
+     *
+     * * * 文件下载 * * *
+     * @param fileName 文件名,如 data.xls
+     * @param response
+     *
+     */
+    @GetMapping("/download")
+    @ApiOperation("下载文件")
+    public Object downloadFile(@RequestParam String fileName, HttpServletResponse response){
+        OutputStream os = null;
+        InputStream is= null;
+        try {
+            // 取得输出流
+            os = response.getOutputStream();
+            // 清空输出流
+            response.reset();
+            response.setContentType("application/x-download;charset=utf-8");
+            //Content-Disposition中指定的类型是文件的扩展名，并且弹出的下载对话框中的文件类型图片是按照文件的扩展名显示的，点保存后，文件以filename的值命名，
+            // 保存类型以Content中设置的为准。注意：在设置Content-Disposition头字段之前，一定要设置Content-Type头字段。
+            //把文件名按UTF-8取出，并按ISO8859-1编码，保证弹出窗口中的文件名中文不乱码，中文不要太多，最多支持17个中文，因为header有150个字节限制。
+            response.setHeader("Content-Disposition", "attachment;filename="+ new String(fileName.getBytes("utf-8"),"ISO8859-1"));
+            //读取流
+            File f = new File("C:\\"+fileName);
+            is = new FileInputStream(f);
+            if (is == null) {
+                System.out.println("下载附件失败，请检查文件“" + fileName + "”是否存在");
+                return Result.fail("下载附件失败，请检查文件“" + fileName + "”是否存在");
+            }
+            //复制
+            IOUtils.copy(is, response.getOutputStream());
+            response.getOutputStream().flush();
+        } catch (IOException e) {
+            return Result.fail("下载附件失败,error:"+e.getMessage());
+        }
+        //文件的关闭放在finally中
+        finally
+        {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //返回成功消息
+        return Result.success(200,"下载成功",is);
+    }
 }

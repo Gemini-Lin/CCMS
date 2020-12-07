@@ -5,6 +5,7 @@ import cn.geminiplanet.ccms.common.lang.Result;
 import cn.geminiplanet.ccms.entity.User;
 import cn.geminiplanet.ccms.service.UserService;
 import cn.geminiplanet.ccms.utils.CreateImageCode;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Base64Utils;
@@ -30,6 +31,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/user")
+@Api(tags = "API for user", description = "")
 @CrossOrigin // 允许跨域(前后端分离)
 @Slf4j // 日志对象
 public class UserController {

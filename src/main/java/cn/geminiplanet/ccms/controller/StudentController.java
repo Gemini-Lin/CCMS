@@ -9,6 +9,7 @@ import cn.geminiplanet.ccms.utils.JwtUtils;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -39,6 +40,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/student")
+@Api(tags = "API for student", description = "")
 public class StudentController {
 
     @Autowired
