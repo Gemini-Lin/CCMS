@@ -61,9 +61,6 @@ public class StudentController {
     @Autowired
     ScoreService scoreService;
 
-    @Value("${upload.dir}")
-    private String realPath;
-
     @PostMapping("/login")
     public Result login(@Validated @RequestBody StudentLoginDto loginDto, HttpServletResponse response) {
 
@@ -221,63 +218,62 @@ public class StudentController {
      *
      */
     @RequiresAuthentication
-    @GetMapping("/upload_experiment_report")
+    @PostMapping("/upload_experiment_report")
     @ApiOperation("上传实验报告")
-    // 未测试
-    public Result uploadExperimentReport(MultipartFile file, @RequestParam("tsId") Integer tsId)  throws IOException {
+    // 测试成功
+    public Result uploadExperimentReport(@RequestParam("file") MultipartFile file)  throws IOException {
 
-        Topicselect topicselect= topicselectService.getOne(new QueryWrapper<Topicselect>().eq("tsId", tsId));
-
-        try {
-            // 对接收文件做 base64 编码
-            String filepath = Base64Utils.encodeToString(file.getBytes());
-            topicselect.setFilePath(filepath);
-            // 处理文件上传
-            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-            String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + extension;
-            file.transferTo(new File(realPath, newFileName));
-            // 修改景点信息
-            topicselectService.updateById(topicselect);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.fail("文件上传失败，请重新上传");
+        if (file == null || file.isEmpty()) {
+            throw new IOException("未选择需上传的日志文件");
+        }
+        String filePath = new File("experiment_reports").getAbsolutePath();
+        File fileUpload = new File(filePath);
+        if (!fileUpload.exists()) {
+            fileUpload.mkdirs();
         }
 
-         return Result.success("文件已成功上传！");
+        fileUpload = new File(filePath + file.getOriginalFilename());
+
+        try {
+            file.transferTo(fileUpload);
+
+            return Result.success(200);
+        } catch (IOException e) {
+            throw new IOException("上传日志文件到服务器失败：" + e.toString());
+        }
     }
 
     /**
      *
-     * * * 提交实验报告* * *
+     * * * 更新实验报告* * *
      *
      */
     @RequiresAuthentication
-    @GetMapping("/submit_experiment_report")
-    @ApiOperation("提交实验报告")
-    // 未测试
-    public Result submitExperimentReport(MultipartFile file, @RequestParam("tsId") Integer tsId)  throws IOException {
+    @PostMapping("/modify_experiment_report")
+    @ApiOperation("更新实验报告")
+    // 测试成功
+    public Result modifyExperimentReport(@RequestParam("file") MultipartFile file)  throws IOException {
 
-        Topicselect topicselect= topicselectService.getOne(new QueryWrapper<Topicselect>().eq("tsId", tsId));
+        if (file == null || file.isEmpty()) {
+            throw new IOException("未选择需上传的日志文件");
+        }
+        String filePath = new File("experiment_reports").getAbsolutePath();
+        File fileUpload = new File(filePath);
+        if (!fileUpload.exists()) {
+            fileUpload.mkdirs();
+        }
+
+        fileUpload = new File(filePath + file.getOriginalFilename());
 
         try {
-            // 文件上传
-            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-            System.out.println(extension);
-            String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "." + extension;
-            System.out.println(newFileName);
-            // base64编码处理(注意, 这一步必须放在 transferTo 操作前面!)
-            topicselect.setFilePath(Base64Utils.encodeToString(file.getBytes()));
-            // 文件上传
-            File realFile = new File(realPath);
-            file.transferTo(new File(realFile, newFileName));
-            // 保存place对象
-            topicselectService.save(topicselect);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.fail("文件提交失败，请重新提交");
+            file.transferTo(fileUpload);
+
+            return Result.success(200);
+        } catch (IOException e) {
+            throw new IOException("上传日志文件到服务器失败：" + e.toString());
         }
-        return Result.success("文件已成功提交！");
     }
+
 
     /**
      *

@@ -12,11 +12,13 @@ config:
     expire: 604800
     header: Authorization
 
-upload:
-  dir: D:/files
 
 # 本地 Mysql 数据库配置
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
   resources:
     static-locations: file:${upload.dir}
   datasource:
